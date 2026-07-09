@@ -1,0 +1,1160 @@
+/* \\\\\\\\\\\\\\\\\\\\ Desktop //////////////////// */
+
+/* ==================== Fonts ==================== */
+@font-face
+{
+    font-family:'Vazirmatn';
+    src:url('../Vazirmatn[wght].woff2') format('woff2-variations');
+    font-weight:100 900;
+    font-display:swap;
+}
+
+/* ==================== Variables ==================== */
+:root
+{
+    --stone-base:#0a0a0c;
+    --stone-dark:#050507;
+    --stone-glow:#16161d;
+    --burner-fire:#ff4d00;
+    --burner-glow:rgba(255, 77, 0, 0.25);
+    --text-silver:#e4e4e7;
+    --text-charcoal:#52525b;
+    --transition-organic:all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --processing-aura:#ff4d00;
+    --radius-premium:28px; 
+}
+
+/* ==================== Reset ==================== */
+html, body, button, input, select, textarea
+{
+    font-family:'Vazirmatn', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+* {margin:0; padding:0; box-sizing:border-box;}
+
+/* ==================== Body ==================== */
+html, body
+{
+    height:100%;
+    margin:0;
+    padding:0;
+    overflow-x:hidden;
+}
+
+html body
+{
+    background:radial-gradient(circle at center, #1a1a1e 0%, #0a0a0c 100%);
+    background-attachment:fixed;
+    display:grid;
+    grid-template-rows:1fr auto;
+    min-height:100vh;
+    min-height:100dvh;
+    font-family:'Vazirmatn', sans-serif;
+}
+
+/* ==================== Layout ==================== */
+main
+{
+    display:flex;
+    flex-direction:row-reverse;
+    align-items:center;
+    justify-content:center;
+    padding:2rem;
+    gap:80px;
+    width:100%;
+    max-width:1600px;
+    margin:0 auto;
+}
+
+/* ==================== Typography ==================== */
+.hero-title
+{
+    order:2;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    text-align:right;
+}
+
+.hero-title h1
+{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end; 
+    font-size:clamp(3rem, 6vw, 5.5rem);
+    font-weight:900;
+    line-height:1.2;
+    background:linear-gradient(180deg, #ffffff 0%, #71717a 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-bottom:1rem;
+    text-align:right;
+    width:fit-content; 
+    padding-right:0.15em; 
+    margin-right:-0.15em; 
+    overflow:visible !important;
+}
+
+.hero-title h1 span
+{
+    display:block;
+    transform:translateX(12px); 
+    margin-top:-0.2rem;
+}
+
+.hero-subtitle
+{
+    margin-top:1rem;
+    direction:rtl;
+    text-align:right;
+    width:100%;
+    display:block;
+    align-self:flex-end;
+    padding-right:15px; 
+    color:var(--text-charcoal);
+}
+
+.status-text
+{
+    margin-top:1.5rem;
+    padding:8px 22px;
+    background:rgba(255, 77, 0, 0.05);
+    border-radius:100px;
+    border:1px solid rgba(255, 77, 0, 0.1);
+    font-size:0.85rem;
+    color:var(--text-silver);
+    display:inline-flex;
+    align-items:center;
+    gap:12px;
+    transition:var(--transition-organic);
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-10px);
+}
+
+.is-listening .status-text,
+.is-processing .status-text,
+.is-error .status-text
+{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.is-error .status-text
+{
+    color:#ff4444;
+    border-color:rgba(255, 68, 68, 0.3);
+    background:rgba(255, 68, 68, 0.05);
+}
+
+/* ==================== Microphone Skeleton ==================== */
+.mic-container
+{
+    order:2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+    transform-style:preserve-3d;
+    perspective:1000px;
+    padding:20px;
+    opacity:0;
+    transition:opacity 0.5s ease-in-out;
+}
+
+.html body .ambient-glow
+{
+    position:absolute;
+    width:300px;
+    height:300px;
+    background:radial-gradient(circle, var(--burner-glow) 0%, transparent 70%);
+    top:50%;
+    left:50%;
+    transform:translateZ(0);
+    z-index:1;
+    opacity:0.4;
+    pointer-events:none;
+    border-radius:50%;
+    mix-blend-mode:screen; 
+    will-change:transform, opacity;
+    animation:ambient-pulse 4s ease-in-out infinite;
+}
+
+.mic-dial, .mic-icon-static, .mic-icon-active{will-change:transform, opacity;}
+
+.mic-dial, .mic-dial:focus, .mic-dial:active, .mic-dial:focus-visible
+{
+    outline:none !important;
+    -webkit-tap-highlight-color:transparent !important;
+    user-select:none !important;
+}
+
+.mic-dial
+{
+    width:280px;
+    height:280px;
+    border-radius:50% !important;
+    position:relative;
+    transition:transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    background:radial-gradient(circle at 35% 35%, #1a1a1e 0%, #0a0a0c 60%, #050507 100%) !important;
+    box-shadow:0 15px 40px rgba(0,0,0,0.8) !important;
+    overflow:hidden !important;
+    isolation:isolate;
+    backface-visibility:hidden;
+    transform:translateZ(0);
+    mask-image:radial-gradient(circle, white 100%, transparent 100%);
+    -webkit-mask-image:radial-gradient(circle, white 100%, transparent 100%);
+}
+
+.mic-dial::before
+{
+    content:'';
+    position:absolute;
+    inset:-1px !important; 
+    border-radius:50% !important;
+    border:3px solid transparent;
+    background:
+    linear-gradient(var(--stone-base), var(--stone-base)) padding-box,
+    conic-gradient(from 0deg, transparent 0%, var(--burner-fire) 15%, transparent 40%) border-box !important;
+    -webkit-mask:none !important;
+    mask:none !important;
+    opacity:0;
+    transition:opacity 0.4s ease;
+    animation:rotate-rim 2s linear infinite;
+    z-index:1;
+    box-shadow:none !important;
+    will-change:transform;
+    pointer-events:none;
+}
+
+.mic-dial::after
+{
+    content:'';
+    position:absolute;
+    top:5%;
+    left:10%;
+    width:80%;
+    height:40%;
+    background:linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+    border-radius:50%;
+    pointer-events:none;
+}
+
+.mic-icon-wrapper
+{
+    width:120px;
+    height:120px;
+    position:relative;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    pointer-events:none;
+}
+
+.mic-dial{--mic-react-scale:1;}
+
+.mic-icon-wrapper
+{
+    transform:scale(var(--mic-react-scale));
+    transform-origin:center center;
+}
+
+/* ==================== Icons/Visualizer ==================== */
+.mic-icon-static, .mic-icon-active
+{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%);
+    transition:var(--transition-organic);
+    will-change:transform, opacity;
+}
+
+.mic-icon-static
+{
+    width:50px;
+    height:50px;
+    color:var(--text-charcoal);
+    opacity:0.8;
+}
+
+.mic-icon-active
+{
+    width:100px;
+    height:100px;
+    opacity:0;
+    visibility:hidden;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%) scale(0.7);
+    transition:var(--transition-organic);
+}
+
+.modern-visualizer
+{
+    position:absolute;
+    inset:auto;
+    top:50%;
+    left:50%;
+    width:90px;
+    height:64px;
+    transform:translate3d(-50%, -50%, 0);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    pointer-events:none;
+    z-index:25;
+    opacity:0;
+    visibility:hidden;
+    contain:layout paint;
+}
+
+.modern-visualizer span
+{
+    width:5px;
+    height:56px;
+    transform:scaleY(var(--bar-scale, 0.08));
+    transform-origin:center center;
+    opacity:0.5;
+    transition:opacity 0.12s linear;
+    will-change:transform, opacity;
+}
+
+/* ==================== States ==================== */
+
+/* Listening */
+.is-listening .mic-energy
+{
+    opacity:0.3;
+    animation:core-pulse 2s ease-in-out infinite;
+}
+
+.is-listening .mic-dial
+{
+    border-color:rgba(255, 77, 0, 0.5);
+    box-shadow:inset 0 0 30px rgba(255, 77, 0, 0.1), 0 0 40px rgba(255, 77, 0, 0.2);
+}
+
+.is-listening .mic-dial::before{opacity:1;}
+
+.is-listening .mic-icon-static
+{
+    opacity:0 !important;
+    transform:translate(-50%, -50%) scale(0.4);
+}
+
+.html body .is-listening .mic-icon-active
+{
+    opacity:0.15;
+    visibility:visible;
+    transform:translate(-50%, -50%) scale(1.1);
+    filter:blur(1px);
+}
+
+.is-listening .modern-visualizer
+{
+    opacity:1 !important;
+    visibility:visible !important;
+}
+
+.is-listening .modern-visualizer span
+{
+    animation:none;
+    transform:none;}
+
+/* Sound Bars Logic */
+.is-listening .sound-bar
+{
+    transform-box:fill-box;
+    transform-origin:center bottom;
+    animation:sound-wave 1.2s ease-in-out infinite alternate;
+}
+.is-listening .bar-1{animation-delay:0.1s; animation-duration:0.8s;}
+.is-listening .bar-2{animation-delay:0.3s; animation-duration:1.1s;}
+.is-listening .bar-3{animation-delay:0.2s; animation-duration:0.9s;}
+.is-listening .bar-4{animation-delay:0.5s; animation-duration:1.3s;}
+.is-listening .bar-5{animation-delay:0.0s; animation-duration:0.7s;}
+
+/* Processing */
+.is-processing .mic-icon-active, 
+.is-processing .modern-visualizer, 
+.is-processing .waves
+{
+    opacity:0 !important;
+    visibility:hidden !important;
+    transition:none !important;
+}
+
+.is-processing .mic-icon-static
+{
+    opacity:1 !important;
+    visibility:visible !important;
+    color:var(--burner-fire) !important;
+    transform:translate(-50%, -50%) scale(1) !important;
+    animation:axiom-breathe 1.5s ease-in-out infinite !important;
+}
+
+html body .is-processing #micIcon
+{
+    stroke:var(--burner-fire);
+    fill:none;
+    transform:none;
+    transition:none;
+}
+
+.is-processing .mic-dial{border-color:var(--burner-fire); box-shadow:0 0 20px rgba(255, 77, 0, 0.2);}
+.is-processing .mic-energy
+{
+    background:radial-gradient(circle, var(--burner-fire) 0%, transparent 60%);
+    opacity:0.2;
+    animation:inner-breath 2s ease-in-out infinite;
+}
+
+/* ==================== Animations ==================== */
+@keyframes core-pulse
+{
+    0%,100%{transform:scale(1); opacity:0.2;}
+    50%{transform:scale(1.15); opacity:0.4;}
+}
+
+@keyframes rotate-rim
+{
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
+}
+
+@keyframes axiom-breathe
+{
+    0%{transform:translate(-50%, -50%) scale(0.95) rotate(0deg); filter:drop-shadow(0 0 5px var(--burner-glow));}
+    33%{transform:translate(-51%, -49%) scale(1) rotate(-2deg); filter:drop-shadow(0 0 15px var(--burner-fire));}
+    66%{transform:translate(-49%, -51%) scale(1.05) rotate(2deg); filter:drop-shadow(0 0 20px var(--burner-fire));}
+    100%{transform:translate(-50%, -50%) scale(0.95) rotate(0deg); filter:drop-shadow(0 0 5px var(--burner-glow));}
+}
+
+@keyframes sound-wave
+{
+    0%{transform:scaleY(0.3); opacity:0.5;}
+    50%{transform:scaleY(1.2); opacity:1;}
+    100%{transform:scaleY(0.6); opacity:0.8;}
+}
+
+@keyframes icon-breath
+{
+    0%, 100%{transform:translate(-50%, -50%) scale(1); opacity:0.8;}
+    50%{transform:translate(-50%, -50%) scale(1.05); opacity:1;}
+}
+
+@keyframes idle-glow
+{
+    0%, 100%{box-shadow:0 0 20px rgba(255, 77, 0, 0.1);}
+    50%{box-shadow:0 0 40px rgba(255, 77, 0, 0.3);}
+}
+
+@keyframes screen-reveal
+{
+    from{opacity:0; transform:translateY(15px) translateZ(0);}
+    to{opacity:1; transform:translateY(0) translateZ(0);}
+}
+
+@keyframes ambient-pulse
+{
+    0%, 100%{opacity:0.3; transform:translate(-50%, -50%) scale(1);}
+    50%{opacity:0.5; transform:translate(-50%, -50%) scale(1.1);}
+}
+
+@keyframes pulse-wave
+{
+    0%{opacity:0.4; transform:scale(1);}
+    100%{opacity:0; transform:scale(1.5);}
+}
+
+/* ==================== Layers ==================== */
+html body .mic-energy
+{
+    position:absolute;
+    inset:15%;
+    border-radius:50%;
+    background:radial-gradient(circle, var(--burner-fire) 0%, transparent 70%);
+    opacity:0.08;
+    filter:blur(15px);
+    transition:var(--transition-organic);
+    z-index:0;
+}
+
+.waves
+{
+    position:absolute;
+    width:280px;
+    height:280px;
+    border:2px solid var(--burner-fire);
+    opacity:0;
+    pointer-events:none;
+    border-radius:50% !important;
+    z-index:0 !important;
+    box-shadow:none !important;
+    outline:none !important;
+}
+.is-listening .waves{animation:pulse-wave 2s infinite;}
+
+.hero-title, .mic-container, footer
+{
+    opacity:0;
+    will-change:transform, opacity;
+    backface-visibility:hidden;
+    perspective:1000px;
+    animation:screen-reveal 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+.hero-title{animation-delay:0.1s;}
+.mic-container{animation-delay:0.4s;}
+footer{animation-delay:0.7s;}
+
+/* ==================== Footer ==================== */
+footer
+{
+    grid-row:2;
+    width:100%;
+    background:rgba(5, 5, 7, 0.95);
+    backdrop-filter:blur(15px);
+    border-top:1px solid rgba(255, 77, 0, 0.3);
+    padding:1.5rem 10%;
+    z-index:100;
+}
+
+.system-footer
+{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    max-width:1400px;
+    margin:0 auto;
+}
+
+.status-badge
+{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:0.65rem;
+    color:var(--text-charcoal);
+}
+
+.status-badge::before
+{
+    content:'';
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--burner-fire);
+    box-shadow:0 0 8px var(--burner-fire);
+    animation:axiom-blink 2s infinite;
+}
+
+@keyframes axiom-blink
+{
+    0%, 100%{opacity:1; transform:scale(1);}
+    50%{opacity:0.4; transform:scale(0.9);}
+}
+
+html body .status-badge,
+html body .axiom-brand
+{
+    font-family:'Segoe UI', Roboto, Arial, sans-serif;
+}
+
+.axiom-brand
+{
+    font-size:0.7rem;
+    color:#3f3f46;
+}
+
+.signature
+{
+    text-decoration:none;
+    color:var(--burner-fire);
+    font-weight:700;
+}
+
+/* ==================== Recipe Box/Scrollbar ==================== */
+.recipe-card
+{
+    position:fixed;
+    z-index:2000;
+    top:50%;
+    left:50%;
+    transform:translate(-50%, -50%) scale(0.9);
+    width:min(92%, 600px);
+    max-height:85vh;
+    background:rgba(10, 10, 12, 0.98);
+    border:1px solid var(--burner-fire);
+    box-shadow:0 0 20px rgba(0,0,0,0.6), 0 0 8px rgba(255,77,0,0.2);
+    padding:2.5rem;
+    opacity:0;
+    pointer-events:none;
+    transition:transform 0.2s ease-out, opacity 0.2s ease;
+    overflow-y:auto;
+    border-radius:var(--radius-premium);
+    scrollbar-width:thin;
+    scrollbar-color:var(--burner-fire) transparent;
+}
+
+.recipe-card::-webkit-scrollbar{width:6px;}
+.recipe-card::-webkit-scrollbar-thumb{background:var(--burner-fire); border-radius:10px;}
+.recipe-card::-webkit-scrollbar-track{background:transparent;}
+
+.recipe-card.is-visible
+{
+    opacity:1;
+    pointer-events:all;
+    transform:translate(-50%, -50%) scale(1);
+}
+
+.recipe-header
+{
+    font-size:clamp(1.5rem, 4vw, 2.2rem);
+    color:var(--burner-fire);
+    border-bottom:2px solid var(--burner-fire);
+    margin-bottom:2rem;
+    padding-bottom:0.5rem;
+    text-align:right;
+    font-weight:900;
+}
+
+.ingredient-list
+{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(180px, 1fr));
+    gap:12px;
+    list-style:none;
+    margin-bottom:2.5rem;
+    direction:rtl;
+}
+
+.ingredient-list li
+{
+    background:rgba(255, 255, 255, 0.03);
+    padding:12px;
+    border-radius:14px;
+    border-right:4px solid var(--burner-fire);
+    font-size:0.95rem;
+    color:var(--text-silver);
+    transition:transform 0.3s ease;
+}
+
+.ingredient-list li:hover
+{
+    transform:translateX(-5px);
+    background:rgba(255, 255, 255, 0.05);
+}
+
+.instruction-text
+{
+    line-height:1.8;
+    color:var(--text-silver);
+    text-align:justify;
+    direction:rtl;
+    font-size:1.05rem;
+    white-space:pre-line;
+}
+
+.close-btn
+{
+    width:100%;
+    padding:1rem;
+    margin-top:1.5rem;
+    background:linear-gradient(45deg, transparent, rgba(255, 77, 0, 0.05));
+    border:1px solid var(--burner-fire);
+    color:var(--burner-fire);
+    border-radius:18px;
+    font-weight:900;
+    font-family:'Vazirmatn';
+    cursor:pointer;
+    transition:all 0.3s ease;
+    text-transform:uppercase;
+    display:block;
+    box-sizing:border-box;
+}
+
+.close-btn:hover
+{
+    background:var(--burner-fire);
+    color:white;
+    box-shadow:0 0 20px var(--burner-glow);
+}
+
+/* ==================== Offline Screen ==================== */
+html body #offline-screen
+{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100dvh;
+    background:radial-gradient(circle at center, #16161d 0%, #050507 100%);
+    z-index:100000;
+    display:none;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-family:'Vazirmatn', sans-serif;
+    text-align:center;
+    overflow:hidden;
+    touch-action:none; 
+}
+
+.offline-core
+{
+    position:relative;
+    width:110px;
+    height:110px;
+    background:#ff4d00;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:2rem;
+    z-index:5;
+    animation:core-float-final 4s ease-in-out infinite;
+    box-shadow:0 0 40px rgba(255, 77, 0, 0.4);
+}
+
+.offline-core::after, .offline-core::before
+{
+    content:'';
+    position:absolute;
+    inset:0;
+    border:2px solid #ff4d00;
+    border-radius:50%;
+    z-index:-1;
+    opacity:0;
+    animation:ripple-system 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    transform:translateZ(0);
+}
+
+.offline-core::before{animation-delay:1.25s;}
+
+html body #offline-screen .offline-status-code
+{
+    font-size:clamp(3rem, 15vw, 4.5rem);
+    font-weight:900;
+    color:#ff4d00;
+    line-height:1;
+    margin:0.5rem 0;
+    font-family:'Vazirmatn', sans-serif;
+}
+
+html body #offline-screen .offline-desc
+{
+    font-family:'Vazirmatn', sans-serif;
+    font-size:0.85rem;
+    color:#ff4d00;
+    letter-spacing:1px;
+    font-weight:500;
+    margin-bottom:2.5rem;
+}
+
+.retry-btn
+{
+    appearance:none;
+    -webkit-appearance:none;
+    background:rgba(255, 255, 255, 0.05) !important;
+    border:1px solid rgba(255, 77, 0, 0.5) !important;
+    color:#ffffff !important;
+    padding:12px 35px;
+    font-size:1rem;
+    border-radius:100px;
+    cursor:pointer;
+    font-family:'Vazirmatn', sans-serif !important;
+    text-decoration:none;
+    transition:none !important;
+}
+
+@media (hover:hover)
+{
+    .retry-btn:hover
+    {
+        background:#ff4d00 !important;
+        color:#000000 !important;
+        box-shadow:0 0 20px rgba(255, 77, 0, 0.4);
+    }
+}
+
+@keyframes ripple-system
+{
+    0%{transform:scale(1); opacity:0.6;}
+    100%{transform:scale(2.5); opacity:0;}
+}
+
+@keyframes core-float-final
+{
+    0%, 100%{transform:translateY(0);}
+    50%{transform:translateY(-10px);}
+}
+
+@-moz-document url-prefix()
+{
+    .offline-core::after, .offline-core::before
+    {
+        animation-duration:3s;
+    }
+}
+
+/* <<<<<<<<<<<<<<<<<<<< Microphone Style >>>>>>>>>>>>>>>>>>>> */
+
+.mic-icon-static
+{
+    color:var(--burner-fire) !important;
+    filter:drop-shadow(0 0 5px var(--burner-glow));
+    transition:all 0.3s ease;
+}
+
+.is-listening .mic-icon-static
+{
+    transform:scale(1.1);
+    filter:drop-shadow(0 0 15px var(--burner-fire));
+}
+
+.is-processing .mic-icon-static
+{
+    color:var(--processing-aura);
+    animation:axiom-breathe 1.5s ease-in-out infinite;
+}
+
+.modern-visualizer span
+{
+    width:5px;
+    background:var(--burner-fire);
+    box-shadow:0 0 8px var(--burner-fire);
+    border-radius:4px;
+}
+
+.is-processing .modern-visualizer span
+{
+    background:linear-gradient(to top, #ffaa00, #ff4d00);
+    opacity:0.8;
+}
+
+@supports(background:linear-gradient(to top, #ff4d00, #ffaa00)) and (not (-moz-appearance:none))
+    {
+        .modern-visualizer span
+        {
+            background:linear-gradient(to top, #ff4d00, #ffaa00);
+            box-shadow:0 0 15px #ff4d00;
+        }
+}
+
+/* \\\\\\\\\\\\\\\\\\\\ Mobile/Tablet //////////////////// */
+
+@media(max-width:768px)
+{
+    html, body
+    {
+        height:auto !important;
+        min-height:100% !important;
+        overflow-x:hidden !important;
+        overflow-y:hidden !important;
+        display:block !important;
+        background-color:#0a0a0c !important;
+        background-image:radial-gradient(circle at center, #1a1a1e 0%, #0a0a0c 100%) !important;
+        background-attachment:scroll !important;
+        background-repeat:no-repeat !important;
+        background-size:cover !important;
+    }
+
+    html
+    {
+        background-color:#0a0a0c !important;
+        height:auto !important;
+        overflow-x:visible !important;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    body
+    {
+        display:flex !important;
+        flex-direction:column !important;
+        height:100% !important;
+        min-height:100dvh !important;
+        background:#0a0a0c radial-gradient(circle at center, #1a1a1e 0%, #0a0a0c 100%) no-repeat !important;
+        background-color:#0a0a0c !important;
+        background-attachment:scroll !important;
+        background-size:cover!important;
+        overscroll-behavior-y:none !important;
+    }
+
+    html body main
+    {
+        flex:1 0 auto;
+        overflow-y:auto;
+        -webkit-overflow-scrolling:touch;
+        background:transparent;
+        flex-direction:column;
+        gap:20px;
+    }
+    
+    html body footer
+    {
+        flex-shrink:0;
+        backdrop-filter:none;
+        -webkit-backdrop-filter:none;
+        background:#050507;
+        position:relative;
+    }
+
+    .hero-title h1
+    {
+        display:block;
+        text-align:center;
+        width:100%;
+        font-size:clamp(2.2rem, 8vw, 2.8rem);
+        background:linear-gradient(180deg, #ffffff 40%, #a1a1aa 100%);
+        -webkit-background-clip:text;
+        background-clip:text;
+        -webkit-text-fill-color:transparent;
+    }
+
+    .hero-title h1 span
+    {
+        transform:none;
+        margin:0;
+        display:block;
+    }
+
+    .hero-subtitle
+    {
+        text-align:center;
+        margin-top:0.8rem;
+        color:#a1a1aa;
+        padding:0 1rem;
+    }
+
+    .mic-dial
+    {
+        width:180px !important;
+        height:180px !important;
+        background:radial-gradient(circle at 35% 35%, #1a1a1e 0%, #0a0a0c 100%) !important;
+        overflow:hidden !important;
+        isolation:isolate !important;
+        box-shadow:none !important;
+        -webkit-backface-visibility:hidden;
+        backface-visibility:hidden;
+        -webkit-transform:translateZ(0);
+        transform:translateZ(0);
+    }
+
+    .mic-dial,
+    .is-listening .mic-dial,
+    .is-processing .mic-dial,
+    .is-cancel .mic-dial
+    {
+        width:180px !important;
+        height:180px !important;
+        transform:scale(var(--mic-react-scale, 1));
+        background:radial-gradient(circle at 35% 35%, #1a1a1e 0%, #0a0a0c 100%) !important;
+        overflow:hidden !important;
+        isolation:isolate !important;
+    }
+
+    .mic-container{transform:scale(1) !important;}
+
+    .waves
+    {
+        width:180px !important;
+        height:180px !important;
+    }
+
+    html body .recipe-card
+    {
+        backdrop-filter:none;
+        -webkit-backdrop-filter:none;
+        position:fixed;
+        top:auto;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100%;
+        height:75vh;
+        margin:0;
+        transform:translateY(110%);
+        box-sizing:border-box;
+        padding:0;
+        border:none;
+        border-radius:28px 28px 0 0;
+        background:rgba(13, 13, 15, 0.98);
+        box-shadow:inset 0 0 0 1px rgba(255, 77, 0, 0.4), 0 -10px 50px rgba(0,0,0,0.9);
+        display:flex;
+        flex-direction:column;
+        z-index:999999;
+        overflow:hidden;
+        will-change:transform;
+        transition:transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change:transform, opacity;
+        transform:translateZ(0);
+        backface-visibility:hidden;
+    }
+
+    html body .recipe-card.is-visible{transform:translateY(0);}
+
+    html body .recipe-content
+    {
+        flex:1;
+        overflow-y:auto;
+        padding:0;
+        -webkit-overflow-scrolling:touch;
+    }
+
+    html body .recipe-header,
+    html body .ingredient-list,
+    html body .instruction-text
+    {
+        padding-left:20px;
+        padding-right:20px;
+        width:100%;
+        box-sizing:border-box;
+        direction:rtl;
+    }
+
+    html body .recipe-card .recipe-header
+    {
+        margin-top:2rem;
+        text-align:right;
+    }
+
+    html body .close-btn
+    {
+        flex-shrink:0;
+        width:calc(100% - 40px);
+        margin:1rem 20px 2.5rem 20px;
+        padding:12px 0;
+        height:50px;
+        background:rgba(255, 77, 0, 0.1);
+        border:1px solid var(--burner-fire);
+        border-radius:18px;
+        color:var(--burner-fire);
+        text-align:center;
+    }
+    
+    html body .recipe-card .close-btn,
+    html body .recipe-card .close-btn:focus,
+    html body .recipe-card .close-btn:active
+    {
+        outline:none;
+        box-shadow:none;
+        -webkit-tap-highlight-color:transparent;
+    }
+
+    html body .recipe-card .close-btn:focus-visible
+    {
+        outline:1px solid rgba(255, 77, 0, 0.45);
+        outline-offset:3px;
+        box-shadow:none;
+    }
+
+    html body .system-footer
+    {
+        flex-direction:column;
+        gap:15px;
+    }
+
+    html body .hero-title
+    {
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        width:100%;
+    }
+
+    .status-text
+    {
+        display:none !important;
+        margin:1.5rem auto 0 auto !important;
+        padding:8px 20px !important;
+        font-size:0.8rem !important;
+        background:rgba(255, 77, 0, 0.1) !important;
+        border:1px solid rgba(255, 77, 0, 0.2) !important;
+        border-radius:100px !important;
+        color:var(--text-silver) !important;
+        width:fit-content !important;
+        opacity:0;
+        transform:translateY(10px);
+        transition:all 0.4s ease !important;
+    }
+
+    .is-listening .status-text,
+    .is-processing .status-text,
+    .is-error .status-text
+    {
+        display:flex !important;
+        opacity:1 !important;
+        visibility:visible !important;
+        transform:translateY(0) !important;
+    }
+
+    .is-listening .mic-dial{animation:mic-vibrate 0.3s ease-in-out infinite alternate !important;}
+
+    .mic-container .modern-visualizer span
+    {
+        animation:none;
+        transform:none;
+        width:4px;
+        height:15px;
+    }
+}
+
+/* <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< >>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+
+.retry-btn
+{
+    -webkit-tap-highlight-color:transparent !important;
+    outline:none !important;
+    user-select:none !important;
+    cursor:pointer !important;
+    pointer-events:auto !important;
+    z-index:10000;
+    transition:background 0.4s ease, border-color 0.4s ease !important;
+    transform:translateZ(0);
+    will-change:transform;
+}
+
+@keyframes button-shake
+{
+    0%, 100%{transform:translate3d(0, 0, 0);}
+    20%, 60%{transform:translate3d(-8px, 0, 0);}
+    40%, 80%{transform:translate3d(8px, 0, 0);}
+}
+
+.shake-anim
+{
+    display:inline-block !important;
+    animation:button-shake 0.4s cubic-bezier(.36,.07,.19,.97) both !important;
+    backface-visibility:hidden;
+    perspective:1000px;
+}
+
+.fade-out 
+{
+    opacity:0 !important;
+    pointer-events:none !important;
+    transition:opacity 0.8s ease !important;
+}
+
+html body .hero-title,
+html body .mic-container,
+html body footer
+{
+    animation:none;
+    opacity:1;
+}
+
+.ambient-glow{display:none;}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>آشپزخانه هوشمند سخنگو</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    
+    <div id="app-loader" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0a0a0c; z-index:9999; display:flex; justify-content:center; align-items:center; transition:opacity 0.5s ease;">
+    </div>
+
+    <div id="offline-screen">
+        <div class="offline-core">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+            </svg>
+        </div>
+        <div class="offline-content">
+            <div class="offline-status-code">404</div>
+            <div class="offline-desc">اتصال قطع شد</div>
+            <button class="retry-btn" onclick="attemptReconnect()">تلاش دوباره</button>
+        </div>
+    </div>
+    
+    <main>
+        <section class="hero-title">
+            <h1>آشپزخانه<br>هوشمند</h1>
+            <p class="hero-subtitle">پخت‌وپز با کمک هوش‌مصنوعی</p>
+            <p id="statusLabel" class="status-text" aria-live="polite"></p>
+        </section>
+        
+        <section class="mic-container">
+            <div class="ambient-glow"></div>
+            <div class="waves" aria-hidden="true"></div>
+            
+            <button id="micBtn" class="mic-dial" aria-label="Activate System">
+                <div class="mic-icon-wrapper">
+                    <svg class="mic-icon-static" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                        <path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v4M8 23h8"/>
+                    </svg>
+                    <div class="modern-visualizer">
+                        <span></span><span></span><span></span><span></span><span></span>
+                    </div>
+                </div>
+            </button>
+        </section>
+    </main>
+    
+    <article id="recipe-vault" class="recipe-card" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="recipe-title">
+        <div class="recipe-content">
+            <h2 id="recipe-title" class="recipe-header"></h2>
+            <ul id="recipe-ingredients" class="ingredient-list"></ul>
+            <div id="recipe-instructions" class="instruction-text" tabindex="0"></div>
+        </div>
+        <button id="close-vault" class="close-btn" aria-label="بستن دستور پخت">متوجه شدم</button>
+    </article>
+
+    <footer>
+        <div class="system-footer">
+            <div class="status-badge">SYSTEM ONLINE</div>
+            <div class="axiom-brand">
+                ENGINEERED BY <a href="#" class="signature">AXIOM VISUAL</a> © 2026
+            </div>
+        </div>
+    </footer>
+
+    <script src="./js/main.js?v=1.60.00"></script>
+
+</body>
+</html>
