@@ -1,0 +1,62 @@
+AXIOM KITCHEN — SOURCE CODE AND DEMONSTRATION LICENSE
+Version 1.0 — 1 November 2026
+
+Copyright (c) 2026 AXIOM VISUAL. All rights reserved.
+
+1. PURPOSE AND SCOPE
+
+AXIOM Kitchen (the "Project") is published as a portfolio and interactive demonstration of web interface design and development. Public availability of the Project or its source code does not constitute a grant of open-source rights or a license for commercial deployment.
+
+This license applies to original source code, original visual design, original written content, and other original materials in the Project owned by AXIOM VISUAL (the "Licensed Materials"). Third-party materials are governed by their respective licenses and are not relicensed by this document.
+
+2. LIMITED PERMISSION
+
+Subject to this license, AXIOM VISUAL permits individuals to:
+(a) access and interact with the publicly hosted demonstration;
+(b) view the publicly accessible source code for personal evaluation, educational review, and portfolio assessment; and
+(c) make only those temporary or incidental copies technically necessary for ordinary browsing and evaluation.
+
+This permission is non-exclusive, non-transferable, revocable to the extent permitted by applicable law, and does not authorize any use beyond this section.
+
+3. RESTRICTED ACTIVITIES
+
+Unless AXIOM VISUAL gives prior express written permission under a separate agreement, you may not:
+(a) copy, download as a reusable project, modify, adapt, translate, or create derivative works from the Licensed Materials, except as expressly permitted in Section 2 or by applicable law;
+(b) redistribute, republish, sublicense, sell, rent, or otherwise make the Licensed Materials available as a product, template, component library, or source-code package;
+(c) use the Licensed Materials in a client project, paid or unpaid, or in any commercial or production website, application, or service;
+(d) use the Licensed Materials as a foundation, starter project, or substantial component of another software product; or
+(e) remove, obscure, or misrepresent copyright notices, ownership information, or attribution.
+
+Nothing in this license restricts rights that cannot lawfully be excluded, including applicable statutory exceptions.
+
+4. COMMERCIAL LICENSING
+
+Commercial use, deployment, customization, redistribution, or any broader rights require a separate written agreement with AXIOM VISUAL. Pricing, deliverables, support, hosting, maintenance, and ownership or licensing of modifications are not included in this demonstration license and must be agreed separately.
+
+Commercial inquiries: axiomvisual.director@gmail.com
+
+5. NO TRANSFER OF OWNERSHIP
+
+All rights not expressly granted are reserved by their respective owners. Access to the Project, including access through GitHub or GitHub Pages, does not transfer ownership of the Licensed Materials or grant any implied commercial license.
+
+6. THIRD-PARTY MATERIALS AND PLATFORM TERMS
+
+Any third-party fonts, libraries, images, audio, datasets, or other assets retain their own copyright and licensing terms. This license does not override those terms or the applicable terms of GitHub or other hosting platforms.
+
+7. DISCLAIMER
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, THE PROJECT AND LICENSED MATERIALS ARE PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+
+8. LIMITATION OF LIABILITY
+
+TO THE MAXIMUM EXTENT PERMITTED BY APPLICABLE LAW, AXIOM VISUAL SHALL NOT BE LIABLE FOR INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES ARISING FROM ACCESS TO OR USE OF THE PROJECT. NOTHING IN THIS LICENSE EXCLUDES LIABILITY THAT CANNOT LAWFULLY BE EXCLUDED.
+
+9. TERMINATION
+
+The permission granted under Section 2 terminates if you materially breach this license. Termination does not affect rights or obligations that by their nature survive termination, nor rights granted under a separate written agreement.
+
+10. CHANGES TO THIS LICENSE
+
+AXIOM VISUAL may publish revised license terms for future distributions of the Project. A revised license does not automatically revoke rights validly granted under an earlier version, and does not override any separate written agreement.
+
+END OF LICENSE
